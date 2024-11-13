@@ -128,8 +128,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee Edit(EmployeeDTO employeeDTO) {
-
-       employeeMapper.Edit(employeeDTO);
+       Employee employee=new Employee();
+       BeanUtils.copyProperties(employeeDTO,employee);
+       employee.setUpdateTime(LocalDateTime.now());
+       employee.setUpdateUser(BaseContext.getCurrentId());
+       employeeMapper.Edit(employee);
         return null;
     }
 
