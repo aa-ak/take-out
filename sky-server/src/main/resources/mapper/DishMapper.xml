@@ -30,4 +30,56 @@
             (#{name},#{categoryId},#{price},#{image},#{description},#{status},#{createTime},#{updateTime},#{createUser},#{updateUser})
 
     </insert>
+    <update id="alterDish">
+        update dish
+        <set>
+        <if test="description!=null">
+            description=#{description},
+        </if>
+        <if test="image!=null">
+            image=#{image},
+        </if>
+        <if test="name!=null and name!=''">
+            name=#{name},
+        </if>
+        <if test="price!=null">
+            price=#{price},
+        </if>
+        <if test="status!=null">
+            status=#{status},
+        </if>
+    </set>
+    where id=#{id}
+    </update>
+    <update id="startAndstop">
+        update dish
+        <set>
+            <if test="status!=null">
+                status=#{status}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="deleteBatch">
+        delete from dish where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteById"></delete>
+    <select id="getPage" resultType="com.sky.vo.DishVO">
+        select d.*,c.name as categoryName from dish d left join category c on d.category_id=c.id
+        <where>
+            <if test="categoryId!=null">
+                and d.category_id=#{categoryId}
+            </if>
+            <if test="name!=null">
+                and d.name like concat('%',#{name},'%')
+            </if>
+            <if test="status!=null">
+                and d.status=#{status}
+            </if>
+        </where>
+        order by d.create_time desc
+    </select>
 </mapper>
