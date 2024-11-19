@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.SetmealDishMapper">
+    <insert id="insertSteal">
+        insert into setmeal_dish
+        (setmeal_id, dish_id, name, price, copies)
+        values
+            <foreach collection="setmealDishes" item="sd" separator=",">
+                (#{sd.setmealId},#{sd.dishId},#{sd.name},#{sd.price},#{sd.copies})
+            </foreach>
+
+    </insert>
+    <update id="alter">
+
+        <foreach collection="dishes" item="df" separator="," open="(" close=")">
+            update setmeal_dish
+            <set>
+                <if test="df.copies!=null">
+                    copies=#{df.copies},
+                </if>
+                <if test="df.name!=null">
+                    name=#{df.name},
+                </if>
+                <if test="df.price!=null">
+                    price=#{df.price},
+                </if>
+                <if test="df.dishId!=null">
+                    dish_id=#{df.dishId}
+                </if>
+            </set>
+            where setmeal_id=#{df.id}
+        </foreach>
+
+    </update>
+    <delete id="deleteById">
+        delete from setmeal_dish where setmeal_id=#{id}
+    </delete>
+    <select id="getById" resultType="com.sky.entity.SetmealDish">
+        select *from setmeal_dish where setmeal_id=#{id}
+    </select>
+
+
+</mapper>

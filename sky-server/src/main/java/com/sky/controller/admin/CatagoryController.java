@@ -61,13 +61,12 @@ public class CatagoryController {
         catagoryService.delete(id);
         return Result.success();
     }
-   @GetMapping("/list")
-   @ApiOperation("根据类型查询分类")
-   public  Result<List<Category>> queryType(Integer type)
-   {
-       List<Category> category=catagoryService.queryType(type);
-       return Result.success(category);
-
-   }
+    @GetMapping("/list")
+    public Result<List<Category>> getById(Integer type)
+    {
+        log.info("类型ID分类");
+       List<Category> categories=catagoryService.queryType(type);
+        return Result.success(categories);
+    }
 
 }

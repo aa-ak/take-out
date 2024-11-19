@@ -42,5 +42,5 @@ public interface DishMapper {
     void startAndstop(Long status,Long id);
 
     @Select("select * from dish where category_id=#{categoryId}")
-    Dish getByTypeId(Long categoryId);
+    List<Dish> getByTypeId(Long categoryId);
 }

@@ -67,6 +67,7 @@
         </foreach>
     </delete>
     <delete id="deleteById"></delete>
+
     <select id="getPage" resultType="com.sky.vo.DishVO">
         select d.*,c.name as categoryName from dish d left join category c on d.category_id=c.id
         <where>
@@ -79,6 +80,7 @@
             <if test="status!=null">
                 and d.status=#{status}
             </if>
+
         </where>
         order by d.create_time desc
     </select>

@@ -82,12 +82,8 @@ public class CatagoryServiceImpl implements CatagoryService {
     }
 
     @Override
-    public  List<Category>queryType(Integer type) {
-
-       return catagoryMapper.queryType(type);
-
-
+    public List<Category> queryType(Integer type) {
+        return catagoryMapper.queryType(type);
     }
-
 
 }

@@ -21,5 +21,5 @@ public interface CatagoryService {
 
     void delete(Long id);
 
-   List<Category> queryType(Integer type);
+    List<Category> queryType(Integer type);
 }

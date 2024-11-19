@@ -46,13 +46,14 @@
      order by sort asc,create_time desc
     </select>
 
-    <select id="queryType" resultType="category">
+    <select id="queryType" resultType="category" >
         select * from category
-        where status = 1
-        <if test="type != null">
-            and type = #{type}
-        </if>
-        order by sort asc,create_time desc
+            <where>
+            <if test="type!=null">
+                type=#{type}
+            </if>
+            </where>
+
     </select>
 
 </mapper>

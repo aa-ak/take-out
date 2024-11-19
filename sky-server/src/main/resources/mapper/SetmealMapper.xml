@@ -4,11 +4,11 @@
 <mapper namespace="com.sky.mapper.SetmealMapper">
 
 
-    <select id="getById" resultType="long">
-        select setmeal_id from setmeal_dish where dish_id in
-         <foreach collection="ids" item="id" separator="," open="(" close=")">
-             #{id}
-         </foreach>
+    <select id="getById" resultType="java.lang.Long">
+        select category_id from dish where id in
+        <foreach collection="ids" item="df" separator="," open="(" close=")">
+                id=#{df}
+        </foreach>
 
     </select>
 </mapper>

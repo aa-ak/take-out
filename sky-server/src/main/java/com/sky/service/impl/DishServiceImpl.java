@@ -33,8 +33,8 @@ public class DishServiceImpl implements DishService {
     private DishFlavorMapper dishFlavorMapper;
     @Autowired
     private SetmealMapper setmealMapper;
-    @Override
-    public void edit(Dish dish) {
+   @Override
+   public void edit(Dish dish) {
        dishMapper.edit(dish);
 
     }
@@ -153,8 +153,8 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish getByTypeId(Long categoryId) {
-        Dish dish=dishMapper.getByTypeId(categoryId);
+    public List<Dish> getByTypeId(Long categoryId) {
+        List<Dish> dish=dishMapper.getByTypeId(categoryId);
         return dish;
     }
 
