@@ -30,24 +30,24 @@ public class DishController {
     {
 
 //        构造red is中的key,规则 dish_分类ID
-        String key="dish_"+categoryId;
+//        String key="dish_"+categoryId;
 
         //查询redis中是否存在菜品数据
-       List<DishVO> list= (List<DishVO>) redisTemplate.opsForValue().get(key);
+//       List<DishVO> list= (List<DishVO>) redisTemplate.opsForValue().get(key);
         //如果存在 直接返回 无需查询数据库
 
          //修改操作时，需要清理缓存数据
         //新增菜品
         //删除菜品
          //起售停售后缓存数据也要清理掉
-        if(list!=null&&list.size()>0)
-        {
-            return Result.success(list);
-        }
+//        if(list!=null&&list.size()>0)
+//        {
+//            return Result.success(list);
+//        }
         //如果不存在 查询数据库，将查询到的数据放入redis中
 
         List<DishVO> dishVO=dishService.UsergetById(categoryId);
-        redisTemplate.opsForValue().set(key,dishVO);
+      /*  redisTemplate.opsForValue().set(key,dishVO);*/
         return Result.success(dishVO);
     }
 }

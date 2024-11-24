@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class CumboContoller {
     @Autowired
     private CumboService cumboService;
 
+    @Cacheable(cacheNames = "setmeal",key = "#categoryId")
     @GetMapping("/list")
     @ApiOperation("根据分类ID查询包含的菜品")
     public Result<List<Setmeal>> getByid(Long categoryId)
@@ -32,6 +34,7 @@ public class CumboContoller {
         List<Setmeal>setmeals=cumboService.getByCategoryId(categoryId);
         return Result.success(setmeals);
     }
+
     @ApiOperation("根据套餐ID查询包含的菜品")
     @GetMapping("/dish/{id}")
     public Result<List<DishItemVO>> getById(@PathVariable Long id)

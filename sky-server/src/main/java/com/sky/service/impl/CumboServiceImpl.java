@@ -17,6 +17,7 @@ import com.sky.result.PageResult;
 import com.sky.service.CumboService;
 import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 public class CumboServiceImpl implements CumboService {
     @Autowired
     private CumboMapper cumboMapper;
@@ -128,6 +130,7 @@ public class CumboServiceImpl implements CumboService {
     @Override
     public List<Setmeal> getByCategoryId(Long categoryId) {
         List<Setmeal>setmeals=setmealDishMapper.getByCategoryId(categoryId);
+
         return setmeals;
     }
 

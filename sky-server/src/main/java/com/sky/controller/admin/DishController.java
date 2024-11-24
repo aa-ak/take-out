@@ -43,8 +43,8 @@ public class DishController {
         log.info("新增菜品{}",dishDTO);
         dishService.savewithFlavor(dishDTO);
 
-        String key="dish_"+dishDTO.getCategoryId();
-        redisTemplate.delete(key);
+//        String key="dish_"+dishDTO.getCategoryId();
+//        redisTemplate.delete(key);
         return Result.success();
 
         //清理缓存数据
@@ -66,9 +66,9 @@ public class DishController {
     {
            log.info("菜品批量删除");
            dishService.deleteBatch(ids);
-           //将所有菜品缓存全删掉
-           Set keys = redisTemplate.keys("dish_*");
-           redisTemplate.delete(keys);
+//           //将所有菜品缓存全删掉
+//           Set keys = redisTemplate.keys("dish_*");
+//           redisTemplate.delete(keys);
            return Result.success();
     }
     @PutMapping
@@ -78,8 +78,8 @@ public class DishController {
         log.info("修改菜品");
         dishService.alterDish(dishDTO);
 
-        Set keys = redisTemplate.keys("dish_*");
-        redisTemplate.delete(keys);
+//        Set keys = redisTemplate.keys("dish_*");
+//        redisTemplate.delete(keys);
         return Result.success();
     }
     @GetMapping("/{id}")

@@ -83,7 +83,16 @@
         </where>
         order by d.create_time desc
     </select>
-    <select id="UsergetById" resultType="com.sky.entity.Dish">
-        select * from dish d  left join  category c on d.category_id = c.id where d.category_id=#{id} and c.status=#{status}
+    <select id="UsergetById" parameterType="category" resultType="com.sky.entity.Dish">
+        select s.* from dish s left join  category c on c.id=s.category_id
+        <where>
+            <if test="status!=null">
+            and s.status=#{status}
+            </if>
+            <if test="id!=null">
+            and s.category_id=#{id}
+            </if>
+        </where>
+
     </select>
 </mapper>
