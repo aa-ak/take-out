@@ -11,8 +11,10 @@
     <artifactId>sky-server</artifactId>
     <dependencies>
         <dependency>
-            <groupId>org.springframwork.boot</groupId>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+
+
         </dependency>
         <dependency>
             <groupId>com.sky</groupId>

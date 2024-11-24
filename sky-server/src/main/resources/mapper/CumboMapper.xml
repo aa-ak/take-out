@@ -31,7 +31,10 @@
                description=#{description},
            </if>
            <if test="status!=null">
-               status=#{status}
+               status=#{status},
+           </if>
+           <if test="image!=null">
+               image=#{image}
            </if>
         </set>
         where id=#{id}
@@ -65,6 +68,14 @@
     <select id="getById" resultType="com.sky.entity.Setmeal">
         select s.*,c.name from setmeal s left join category c on c.id=s.category_id
         where s.id=#{id}
+    </select>
+
+    <select id="getCopies" resultType="java.lang.Integer">
+        select copies from setmeal_dish where setmeal_id=#{id}
+    </select>
+    <select id="getSetmealById" resultType="com.sky.vo.DishItemVO">
+        select sd.name, sd.copies, d.image, d.description  from setmeal_dish sd left join dish d
+                on sd.dish_id = d.id where sd.setmeal_id = #{setmealId}
     </select>
 
 

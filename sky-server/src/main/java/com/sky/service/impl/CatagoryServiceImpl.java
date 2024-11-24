@@ -7,10 +7,12 @@ import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.entity.DishFlavor;
 import com.sky.mapper.CatagoryMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.CatagoryService;
+import com.sky.vo.DishVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,5 +87,15 @@ public class CatagoryServiceImpl implements CatagoryService {
     public List<Category> queryType(Integer type) {
         return catagoryMapper.queryType(type);
     }
+
+    @Override
+    public List<Category> getByType(Integer type) {
+        Category category = new Category();
+        category.setType(type);
+        category.setStatus(StatusConstant.ENABLE);
+        List<Category>categories=catagoryMapper.userGetByType(category);
+       return categories;
+    }
+
 
 }

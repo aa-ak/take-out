@@ -7,6 +7,7 @@ import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Category;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
 import com.sky.entity.SetmealDish;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -126,7 +128,8 @@ public class DishServiceImpl implements DishService {
 //            DishFlavor dishFlavor=new DishFlavor();
 //            BeanUtils.copyProperties(dishDTO.getFlavors(),dishFlavor);
 //            dishFlavor.setDishId(id);
-            dishFlavorMapper.alterById(id);
+            dishFlavorMapper.deletById(id);
+            dishFlavorMapper.insertByid(id);
         }
 
 
@@ -152,10 +155,24 @@ public class DishServiceImpl implements DishService {
         dishMapper.startAndstop(status,id);
     }
 
+
+
+
     @Override
-    public List<Dish> getByTypeId(Long categoryId) {
-        List<Dish> dish=dishMapper.getByTypeId(categoryId);
-        return dish;
+    public List<DishVO> UsergetById(Long categoryId) {
+        Category category = new Category();
+        category.setId(categoryId);
+        category.setStatus(StatusConstant.ENABLE);
+        List<Dish>dish =dishMapper.UsergetById(category);
+        List<DishVO> dishVOList = new ArrayList<>();
+        for (Dish d : dish) {
+            DishVO dishVO=new DishVO();
+            BeanUtils.copyProperties(d,dishVO);
+            List<DishFlavor>flavors=dishFlavorMapper.getDishwithFlavorById(d.getId());
+            dishVO.setFlavors(flavors);
+            dishVOList.add(dishVO);
+        }
+        return dishVOList;
     }
 
 

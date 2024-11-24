@@ -43,6 +43,7 @@ public class CatagoryController {
     @ApiOperation("启用，禁用分类")
     public Result EnableDisanable(@PathVariable Integer status,Long id)
     {
+        log.info("启用，禁用分类");
         catagoryService.enableDisanable(status,id);
         return Result.success();
     }
@@ -68,5 +69,6 @@ public class CatagoryController {
        List<Category> categories=catagoryService.queryType(type);
         return Result.success(categories);
     }
+
 
 }

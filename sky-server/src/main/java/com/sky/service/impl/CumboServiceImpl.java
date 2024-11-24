@@ -15,12 +15,15 @@ import com.sky.mapper.CumboMapper;
 import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.CumboService;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -115,13 +118,31 @@ public class CumboServiceImpl implements CumboService {
         List<SetmealDish> dishes=setmealDTO.getSetmealDishes();
         dishes.forEach(setmealDish ->
         {
-            setmealDish.setDishId(id);
+            setmealDish.setSetmealId(id);
         });
 
             setmealDishMapper.insertSteal(dishes);
 
         }
 
-
+    @Override
+    public List<Setmeal> getByCategoryId(Long categoryId) {
+        List<Setmeal>setmeals=setmealDishMapper.getByCategoryId(categoryId);
+        return setmeals;
     }
+
+    @Override
+    public List<DishItemVO> getSetmealById(Long id) {
+        List<DishItemVO> setmealById = cumboMapper.getSetmealById(id);
+
+        return setmealById;
+
+        }
+
+
+
+
+
+
+}
 

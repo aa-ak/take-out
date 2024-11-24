@@ -20,4 +20,5 @@ public interface DishFlavorMapper {
     @Select("select * from  dish_flavor WHERE id=#{id}")
     List<DishFlavor> getDishwithFlavorById(Long id);
 
+    void insertByid(Long id);
 }

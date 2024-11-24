@@ -5,7 +5,9 @@ import com.sky.annotation.AutoFill;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.entity.DishFlavor;
 import com.sky.enumeration.OperationType;
+import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +35,10 @@ public interface CatagoryMapper {
 
 //    @Select("select * from category where type=#{type}")
     List<Category> queryType(Integer type);
+
+
+    List<Category>userGetByType(Category category);
+
+
+
 }

@@ -10,14 +10,18 @@
         </foreach>
 
     </insert>
+    <insert id="insertByid">
+        insert into dish_flavor( dish_id, name, value) values (#{id},#{name},#{value})
+
+    </insert>
     <update id="alterById">
         update dish_flavor
         <set>
         <if test="name!=null">
             name=#{name}
         </if>
-        <if test="values!=null">
-            values=#{values}
+        <if test="value!=null">
+            value=#{value}
         </if>
         </set>
         where dish_id=#{id}
