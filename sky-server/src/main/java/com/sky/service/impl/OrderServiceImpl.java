@@ -1,5 +1,6 @@
 package com.sky.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -24,6 +25,7 @@ import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import com.sky.websocket.WebSocketServer;
 import io.jsonwebtoken.JwtBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ import org.springframework.util.CollectionUtils;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,6 +44,8 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    @Autowired
+    private WebSocketServer webSocketServer;
     @Autowired
     private Address address;
     private static  final Integer MAX_DISTANCE=5000;
@@ -72,12 +77,12 @@ public class OrderServiceImpl implements OrderService {
         }
         sb.append(addressBook.getCityName()).append(addressBook.getDistrictName()).append(addressBook.getDetail());
 
-        //超出配送距离
-        Boolean distance = distance(addressBook);
-        if(!distance)
-        {
-            throw new OrderBusinessException("超出配送范围");
-        }
+//        //超出配送距离
+//        Boolean distance = distance(addressBook);
+//        if(!distance)
+//        {
+//            throw new OrderBusinessException("超出配送范围");
+//        }
 
         List<ShoppingCart> shoppingCart=shopMapper.getByShopId(BaseContext.getCurrentId());
         if(shoppingCart==null)
@@ -117,6 +122,7 @@ public class OrderServiceImpl implements OrderService {
                 .orderAmount(amount)
                 .orderNumber(orders.getNumber())
                 .build();
+
 
         return orderSubmitVO;
     }
@@ -423,6 +429,14 @@ public class OrderServiceImpl implements OrderService {
                 .build();
 
         orderMapper.update(orders);
+
+        //websocket推送
+        Map map=new HashMap();
+        map.put("type",1);//1表示新订单
+        map.put("orderId",orders.getId());
+        map.put("content","订单号:"+ outTradeNo);
+        String jsonString = JSON.toJSONString(map);
+        webSocketServer.sendToAllClient(jsonString);
     }
    private Boolean distance(AddressBook addressBook) throws Exception {
 

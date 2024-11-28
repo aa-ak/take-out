@@ -45,6 +45,8 @@ public interface OrderService {
 
     OrderPaymentVO paymentSkip(OrdersPaymentDTO ordersPaymentDTO) ;
 
+    void paySuccess(String outTradeNo);
+
 
 //    OrderPaymentVO payment(OrdersPaymentDTO ordersPaymentDTO) throws Exception;
 //    public void paySuccess(String outTradeNo);

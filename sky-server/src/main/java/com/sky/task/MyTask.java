@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 /**
  * 自定义定时任务类
  */
-@Component
-@Slf4j
-public class MyTask {
-    @Scheduled(cron = "0/5 * * * * ?")
-    public void excuteTask()  {
-
-        log.info("task run");
-    }
-
-}
+//@Component
+//@Slf4j
+//public class MyTask {
+//    @Scheduled(cron = "0/5 * * * * ?")
+//    public void excuteTask()  {
+//
+//        log.info("task run");
+//    }
+//
+//}
