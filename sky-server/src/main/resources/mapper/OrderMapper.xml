@@ -88,5 +88,82 @@
     <select id="getProceeTimeOut" resultType="com.sky.entity.Orders">
         select * from orders where status=#{status} and order_time <![CDATA[<]]> #{orderTime}
     </select>
+    <select id="getTurnOver" resultType="java.lang.Double">
+       select sum(amount) from orders
+      <where>
+           <if test="localDate1!=null">
+               and order_time&gt;#{localDate1}
+           </if>
+           <if test="Date2!=null">
+                and order_time &lt;#{Date2}
+           </if>
+           <if test="status!=null">
+               and status=#{status}
+           </if>
+     </where>
+
+    </select>
+    <select id="getOrderCount" resultType="java.lang.Integer">
+        select count(id)from orders
+        <where>
+            <if test="dateTime1!=null">
+                and order_time&gt;#{dateTime1}
+            </if>
+            <if test="dateTime2!=null">
+                and order_time&lt;#{dateTime2}
+            </if>
+
+        </where>
+    </select>
+    <select id="getValidOrderCount" resultType="java.lang.Integer">
+        select count(id)from orders
+        <where>
+            <if test="dateTime1!=null">
+                and order_time&gt;#{dateTime1}
+            </if>
+            <if test="dateTime2!=null">
+                and order_time&lt;#{dateTime2}
+            </if>
+            <if test="status!=null">
+                and status=#{status}
+            </if>
+        </where>
+    </select>
+    <select id="getInvalidOrderCount" resultType="com.sky.entity.Orders">
+        select id from orders
+        <if test="dateTime1!=null">
+            and order_time&gt;#{dateTime1}
+        </if>
+        <if test="dateTime2!=null">
+            and order_time&lt;#{dateTime2}
+        </if>
+        <if test="status!=null">
+            and status=#{status}
+        </if>
+    </select>
+    <select id="getSalesTop10" resultType="com.sky.dto.GoodsSalesDTO">
+        select od.name,sum(od.number) number from order_detail od,orders o
+        where od.order_id=o.id and o.status=#{status}
+             <if test="dateTime1!=null">
+                 and o.order_time&gt;#{dateTime1}
+             </if>
+            <if test="dateTime2!=null">
+             and o.order_time&lt;#{dateTime2}
+            </if>
+         group by od.name
+         order by sum(od.number)
+        desc limit 10
+    </select>
+    <select id="getAllOrders" resultType="java.lang.Integer">
+        select count(id) from orders <where>
+        <if test="status!=null">
+            status=#{status}
+        </if>
+    </where>
+    </select>
+    <select id="getAmount" resultType="java.lang.Double">
+        select sum(amount) from orders where status=#{status} and order_time &gt;#{localDate1} and order_time &lt;#{localDate2}
+    </select>
+
 
 </mapper>

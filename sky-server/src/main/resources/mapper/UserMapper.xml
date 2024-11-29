@@ -6,6 +6,17 @@
     insert into user(openid, name, phone, sex, id_number, avatar, create_time)
     values (#{openid},#{name},#{phone},#{sex},#{idNumber},#{avatar},#{createTime})
 </insert>
+    <select id="getUser" resultType="java.lang.Integer">
+        select count(distinct openid) from user
+        <where>
+            <if test="dateTime1!=null">
+                and create_time &gt;#{dateTime1}
+            </if>
+            <if test="dateTime2!=null">
+                and create_time &lt;#{dateTime2}
+            </if>
+        </where>
+    </select>
 
 
 </mapper>

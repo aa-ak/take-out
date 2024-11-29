@@ -35,4 +35,6 @@ public interface CumboMapper {
     List<DishItemVO> getSetmealById(Long id);
 
     Integer getCopies(Long id);
+
+    Integer getAllCumbo(Integer enable);
 }

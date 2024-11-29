@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrderDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.OrderDetail;
@@ -8,16 +9,21 @@ import com.sky.entity.Orders;
 import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
+import com.sky.vo.TurnoverReportVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
 public interface OrderMapper {
+
+
+    Double getTurnOver(LocalDateTime localDate1, LocalDateTime Date2, Integer status);
 
     /**
      *
@@ -83,6 +89,18 @@ public interface OrderMapper {
 
     List<Orders>getProceeTimeOut(Integer status, LocalDateTime orderTime);
 
-//    @Select("select * from orders where status = #{status}")
-//    List<Orders>getProceeDelivery(Integer status);
+
+    Integer getOrderCount(LocalDateTime dateTime1, LocalDateTime dateTime2);
+
+    Integer getValidOrderCount(LocalDateTime dateTime1, LocalDateTime dateTime2, Integer status);
+
+    List<Orders> getInvalidOrderCount(LocalDateTime dateTime1, LocalDateTime dateTime2, Integer completed);
+
+
+    List<GoodsSalesDTO> getSalesTop10(LocalDateTime dateTime1, LocalDateTime dateTime2, Integer status);
+
+
+    Integer getAllOrders(Integer status);
+
+    Double getAmount(LocalDateTime localDate1, LocalDateTime localDate2, Integer status);
 }

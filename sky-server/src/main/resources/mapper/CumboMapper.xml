@@ -77,6 +77,9 @@
         select sd.name, sd.copies, d.image, d.description  from setmeal_dish sd left join dish d
                 on sd.dish_id = d.id where sd.setmeal_id = #{setmealId}
     </select>
+    <select id="getAllCumbo" resultType="java.lang.Integer">
+        select count(id) from setmeal where status=#{status}
+    </select>
 
 
 </mapper>

@@ -46,4 +46,6 @@ public interface DishMapper {
     List<Dish> getByTypeId(Long categoryId);
 
     List<Dish> UsergetById(Category category);
+
+    Integer getAllDish(Integer enable);
 }

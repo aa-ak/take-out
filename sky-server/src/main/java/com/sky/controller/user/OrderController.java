@@ -82,7 +82,7 @@ public class OrderController {
     {
         log.info("订单详情{}",id);
         OrderVO orderVO=orderService.orderDetail(id);
-        return Result.success();
+        return Result.success(orderVO);
     }
 
     /**

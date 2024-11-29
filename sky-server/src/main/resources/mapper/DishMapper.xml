@@ -95,4 +95,7 @@
         </where>
 
     </select>
+    <select id="getAllDish" resultType="java.lang.Integer">
+        select count(id)from dish where status=#{status}
+    </select>
 </mapper>

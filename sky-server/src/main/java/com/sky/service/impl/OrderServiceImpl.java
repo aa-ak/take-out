@@ -100,6 +100,7 @@ public class OrderServiceImpl implements OrderService {
         orders.setPhone(addressBook.getPhone());
         orders.setConsignee(addressBook.getConsignee());
         orders.setAddress(sb.toString());
+        orders.setEstimatedDeliveryTime(LocalDateTime.now().plusMinutes(30));
         orderMapper.submit(orders);
 
         //订单明细插入n条数据
@@ -211,7 +212,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void reminder(Long id) {
 
-
+        Orders orders = orderMapper.getOrders(id);
+        if(orders==null)
+        {
+            throw new OrderBusinessException(MessageConstant.ORDER_STATUS_ERROR);
+        }
+        Map hashMap = new HashMap();
+        hashMap.put("type",2);
+        hashMap.put("orderId",id);
+        hashMap.put("content","订单号:"+orders.getNumber());
+        webSocketServer.sendToAllClient(JSON.toJSONString(hashMap));
     }
 
     @Override
